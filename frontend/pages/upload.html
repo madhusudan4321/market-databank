@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Upload Data — Market Databank</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">Market Databank</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search.html">Browse</a>
+      <a href="upload.html" class="active">Upload Data</a>
+      <a href="dashboard.html">My Submissions</a>
+      <a href="login.html" class="btn-nav">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:640px">
+    <h2 style="margin-bottom:0.25rem">Upload Market Data</h2>
+    <p class="muted">Anyone can contribute. Your submission will be reviewed before going live.</p>
+
+    <div class="card" style="margin-top:1.5rem">
+      <div id="form-message"></div>
+      <div class="form-group">
+        <label>Dataset title *</label>
+        <input type="text" id="title" placeholder="e.g. India Retail Sales Q1 2026"/>
+      </div>
+      <div class="form-group">
+        <label>Description *</label>
+        <textarea id="description" rows="3" placeholder="What does this dataset contain?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Category *</label>
+        <select id="category">
+          <option value="">-- Select category --</option>
+          <option>Retail</option>
+          <option>Agriculture</option>
+          <option>Finance</option>
+          <option>Technology</option>
+          <option>Healthcare</option>
+          <option>Real Estate</option>
+          <option>Energy</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Your email <span class="muted">(optional — for status updates)</span></label>
+        <input type="email" id="email" placeholder="you@example.com"/>
+      </div>
+      <div class="form-group">
+        <label>Upload file * <span class="muted">(CSV, JSON, Excel, TXT — max 10MB)</span></label>
+        <input type="file" id="file" accept=".csv,.json,.xlsx,.xls,.txt"/>
+      </div>
+      <button class="btn-primary" id="submit-btn" onclick="submitData()">Submit Dataset</button>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/upload.js"></script>
+</body>
+</html>

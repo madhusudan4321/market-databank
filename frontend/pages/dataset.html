@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dataset — Market Databank</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">Market Databank</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search.html">Browse</a>
+      <a href="upload.html">Upload Data</a>
+      <a href="login.html" class="btn-nav">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container" style="max-width:700px" id="dataset-detail">
+    <p class="loading">Loading dataset...</p>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    async function loadDataset() {
+      const id = new URLSearchParams(window.location.search).get('id');
+      if (!id) { document.getElementById('dataset-detail').innerHTML = '<p>No dataset specified.</p>'; return; }
+      const d = await apiFetch(`/api/datasets/${id}`);
+      document.getElementById('dataset-detail').innerHTML = `
+        <a href="search.html" class="muted" style="font-size:13px">← Back to browse</a>
+        <h2 style="margin-top:1rem">${d.title}</h2>
+        <div class="tag">${d.category}</div>
+        ${d.tags?.map(t => `<span class="tag">${t}</span>`).join('') || ''}
+        <p style="margin-top:1rem">${d.description}</p>
+        <div class="meta-row">
+          <span class="muted">File: ${d.fileName}</span>
+          <span class="muted">Size: ${formatSize(d.fileSize)}</span>
+          <span class="muted">Downloads: ${d.downloads}</span>
+          <span class="muted">Added: ${formatDate(d.createdAt)}</span>
+        </div>
+        <a href="http://localhost:5000/api/datasets/${d._id}/download" class="btn-primary" style="margin-top:1.5rem;display:inline-block">Download Dataset</a>
+      `;
+    }
+    loadDataset();
+  </script>
+</body>
+</html>

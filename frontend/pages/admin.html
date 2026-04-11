@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard — Market Databank</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+  <link rel="stylesheet" href="../css/admin.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">Market Databank — Admin</div>
+    <div class="nav-links">
+      <span id="admin-name" class="muted"></span>
+      <button class="btn-nav" onclick="logout()">Logout</button>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="admin-tabs">
+      <button class="tab-btn active" onclick="switchTab('pending')">Pending review</button>
+      <button class="tab-btn" onclick="switchTab('all')">All submissions</button>
+    </div>
+    <div id="queue-list"></div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/admin.js"></script>
+</body>
+</html>

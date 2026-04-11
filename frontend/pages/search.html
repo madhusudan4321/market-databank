@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Browse Datasets — Market Databank</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">Market Databank</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search.html" class="active">Browse</a>
+      <a href="upload.html">Upload Data</a>
+      <a href="dashboard.html">My Submissions</a>
+      <a href="login.html" class="btn-nav">Admin</a>
+    </div>
+  </nav>
+
+  <div class="container">
+    <h2>Browse Datasets</h2>
+    <div class="search-bar">
+      <input type="text" id="search-input" placeholder="Search datasets..." oninput="runSearch()"/>
+      <select id="cat-filter" onchange="runSearch()">
+        <option value="">All categories</option>
+        <option>Retail</option>
+        <option>Agriculture</option>
+        <option>Finance</option>
+        <option>Technology</option>
+        <option>Healthcare</option>
+        <option>Real Estate</option>
+        <option>Energy</option>
+        <option>Other</option>
+      </select>
+    </div>
+    <p class="muted" id="result-count"></p>
+    <div class="dataset-grid" id="results-grid">
+      <p class="loading">Loading...</p>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/search.js"></script>
+</body>
+</html>

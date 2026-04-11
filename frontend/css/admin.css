@@ -1,0 +1,13 @@
+.admin-tabs { display: flex; gap: 8px; margin-bottom: 1.5rem; }
+.tab-btn { padding: 8px 20px; border: 0.5px solid #ccc; background: #fff; border-radius: 8px; cursor: pointer; font-size: 14px; }
+.tab-btn.active { background: #185FA5; color: #fff; border-color: #185FA5; }
+
+.admin-card { background: #fff; border: 0.5px solid #e0e0dc; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; }
+.admin-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+
+.admin-actions { margin-top: 1rem; display: flex; flex-direction: column; gap: 8px; border-top: 0.5px solid #e0e0dc; padding-top: 1rem; }
+
+.btn-success { background: #3B6D11; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+.btn-success:hover { background: #27500A; }
+.btn-danger { background: #A32D2D; color: #fff; border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+.btn-danger:hover { background: #791F1F; }

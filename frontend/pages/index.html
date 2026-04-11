@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Market Databank</title>
+  <link rel="stylesheet" href="../css/style.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="nav-brand">Market Databank</div>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="search.html">Browse</a>
+      <a href="upload.html">Upload Data</a>
+      <a href="dashboard.html">My Submissions</a>
+      <a href="login.html" class="btn-nav">Admin</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <h1>The Open Market Databank</h1>
+    <p>Collect, explore, and share market data with the world.</p>
+    <div class="hero-btns">
+      <a href="search.html" class="btn-primary">Browse Datasets</a>
+      <a href="upload.html" class="btn-outline">Upload Data</a>
+    </div>
+  </section>
+
+  <section class="stats-bar">
+    <div class="stat"><span id="total-datasets">0</span><label>Datasets</label></div>
+    <div class="stat"><span id="total-downloads">0</span><label>Downloads</label></div>
+    <div class="stat"><span id="total-categories">0</span><label>Categories</label></div>
+  </section>
+
+  <section class="container">
+    <h2>Latest Datasets</h2>
+    <div class="dataset-grid" id="dataset-grid">
+      <p class="loading">Loading datasets...</p>
+    </div>
+    <div style="text-align:center;margin-top:2rem">
+      <a href="search.html" class="btn-outline">View All Datasets</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>Market Databank &copy; 2026 — Open data for everyone</p>
+  </footer>
+
+  <script src="../js/main.js"></script>
+  <script>
+    async function loadHome() {
+      const datasets = await apiFetch('/api/datasets');
+      const grid = document.getElementById('dataset-grid');
+      if (!datasets.length) { grid.innerHTML = '<p>No datasets yet.</p>'; return; }
+
+      let total = 0;
+      const cats = new Set();
+      datasets.forEach(d => { total += d.downloads || 0; cats.add(d.category); });
+
+      document.getElementById('total-datasets').textContent = datasets.length;
+      document.getElementById('total-downloads').textContent = total;
+      document.getElementById('total-categories').textContent = cats.size;
+
+      grid.innerHTML = datasets.slice(0, 6).map(d => datasetCard(d)).join('');
+    }
+    loadHome();
+  </script>
+</body>
+</html>
