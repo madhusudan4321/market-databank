@@ -23,7 +23,7 @@ async function loadQueue() {
   const endpoint = currentTab === 'pending' ? '/api/admin/submissions/pending' : '/api/admin/submissions/all';
 
   try {
-    const res = await fetch('http://localhost:5000' + endpoint, {
+    const res = await fetch('https://market-databank-1aws.onrender.com' + endpoint, {
       headers: { Authorization: `Bearer ${token}` }
     });
     const data = await res.json();
@@ -72,7 +72,7 @@ async function review(id, decision) {
   }
 
   try {
-    const res = await fetch(`http://localhost:5000/api/admin/submissions/${id}/review`, {
+    const res = await fetch(`https://market-databank-1aws.onrender.com/api/admin/submissions/${id}/review`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({ decision, feedback, tags })

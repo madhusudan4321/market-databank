@@ -23,7 +23,7 @@ async function submitData() {
     btn.textContent = 'Submitting...';
   
     try {
-      const res = await fetch('http://localhost:5000/api/submissions', {
+      const res = await fetch('https://market-databank-1aws.onrender.com/api/submissions', {
         method: 'POST',
         body: formData
       });

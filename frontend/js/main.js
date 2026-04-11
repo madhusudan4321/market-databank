@@ -1,4 +1,4 @@
-const API = 'http://localhost:5000';
+const API = 'https://market-databank-1aws.onrender.com';
 
 async function apiFetch(endpoint) {
   try {
