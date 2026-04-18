@@ -1,3 +1,4 @@
+const path = require('path');
 const Submission = require('../models/Submission');
 const { validateFile } = require('../utils/fileValidator');
 
@@ -8,10 +9,13 @@ const createSubmission = async (req, res) => {
     if (!validation.valid) return res.status(400).json({ message: validation.message });
 
     const { title, description, category, contributorEmail } = req.body;
+
+    const normalizedPath = req.file.path.replace(/\\/g, '/');
+
     const submission = await Submission.create({
       title, description, category, contributorEmail,
       fileName: req.file.originalname,
-      filePath: req.file.path,
+      filePath: normalizedPath,
       fileSize: req.file.size
     });
     res.status(201).json({ message: 'Submission received! It will be reviewed shortly.', submission });

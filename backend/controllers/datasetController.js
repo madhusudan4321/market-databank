@@ -1,3 +1,4 @@
+const path = require('path');
 const Dataset = require('../models/Dataset');
 
 const getAllDatasets = async (req, res) => {
@@ -25,7 +26,8 @@ const downloadDataset = async (req, res) => {
     if (!dataset) return res.status(404).json({ message: 'Dataset not found' });
     dataset.downloads += 1;
     await dataset.save();
-    res.download(dataset.filePath, dataset.fileName);
+    const normalizedPath = dataset.filePath.replace(/\\/g, '/');
+    res.download(normalizedPath, dataset.fileName);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
