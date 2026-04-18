@@ -1,4 +1,3 @@
-const path = require('path');
 const Submission = require('../models/Submission');
 const { validateFile } = require('../utils/fileValidator');
 
@@ -10,14 +9,17 @@ const createSubmission = async (req, res) => {
 
     const { title, description, category, contributorEmail } = req.body;
 
-    const normalizedPath = req.file.path.replace(/\\/g, '/');
-
     const submission = await Submission.create({
-      title, description, category, contributorEmail,
+      title,
+      description,
+      category,
+      contributorEmail,
       fileName: req.file.originalname,
-      filePath: normalizedPath,
+      filePath: req.file.path,
+      cloudinaryUrl: req.file.path,
       fileSize: req.file.size
     });
+
     res.status(201).json({ message: 'Submission received! It will be reviewed shortly.', submission });
   } catch (err) {
     res.status(500).json({ message: err.message });

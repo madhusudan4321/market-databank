@@ -1,5 +1,6 @@
-const path = require('path');
 const Dataset = require('../models/Dataset');
+const https = require('https');
+const http = require('http');
 
 const getAllDatasets = async (req, res) => {
   try {
@@ -24,10 +25,23 @@ const downloadDataset = async (req, res) => {
   try {
     const dataset = await Dataset.findById(req.params.id);
     if (!dataset) return res.status(404).json({ message: 'Dataset not found' });
+
     dataset.downloads += 1;
     await dataset.save();
-    const normalizedPath = dataset.filePath.replace(/\\/g, '/');
-    res.download(normalizedPath, dataset.fileName);
+
+    const fileUrl = dataset.cloudinaryUrl || dataset.filePath;
+    const fileName = dataset.fileName;
+
+    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
+    res.setHeader('Content-Type', 'application/octet-stream');
+
+    const protocol = fileUrl.startsWith('https') ? https : http;
+    protocol.get(fileUrl, (fileRes) => {
+      fileRes.pipe(res);
+    }).on('error', (err) => {
+      res.status(500).json({ message: 'Download failed: ' + err.message });
+    });
+
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

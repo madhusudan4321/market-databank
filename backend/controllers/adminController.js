@@ -21,7 +21,12 @@ const reviewSubmission = async (req, res) => {
     submission.status = decision;
     await submission.save();
 
-    await Review.create({ submissionId: submission._id, adminId: req.user._id, decision, feedback });
+    await Review.create({
+      submissionId: submission._id,
+      adminId: req.user._id,
+      decision,
+      feedback
+    });
 
     if (decision === 'approved') {
       await Dataset.create({
@@ -29,7 +34,8 @@ const reviewSubmission = async (req, res) => {
         description: submission.description,
         category: submission.category,
         fileName: submission.fileName,
-        filePath: submission.filePath,
+        filePath: submission.cloudinaryUrl || submission.filePath,
+        cloudinaryUrl: submission.cloudinaryUrl || submission.filePath,
         fileSize: submission.fileSize,
         tags: tags || [],
         submissionId: submission._id
